@@ -8,6 +8,8 @@ import NewUser from "../pages/newUser/NewUser";
 import ProductList from "../pages/productList/ProductList";
 import Product from "../pages/product/Product";
 import NewProduct from "../pages/newProduct/NewProduct";
+import Login from "../pages/login/Login";
+import LoginLayout from "../layouts/LoginLayout";
 
 export const router = createBrowserRouter([
   {
@@ -41,6 +43,18 @@ export const router = createBrowserRouter([
       {
         path: "/newproduct",
         element: <NewProduct />,
+      },
+    ],
+  },
+
+  // login layout
+  {
+    element: <LoginLayout />,
+    errorElement: <Error />,
+    children: [
+      {
+        path: "/login",
+        element: <Login />,
       },
     ],
   },
