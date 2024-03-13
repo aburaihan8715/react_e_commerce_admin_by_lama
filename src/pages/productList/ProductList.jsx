@@ -1,10 +1,10 @@
-import "./productList.css";
-import { DataGrid } from "@mui/x-data-grid";
-import { DeleteOutline } from "@mui/icons-material";
-import { Link } from "react-router-dom";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { deleteProduct, getProducts } from "../../redux/apiCalls";
+import './productList.css';
+import { DataGrid } from '@mui/x-data-grid';
+import { DeleteOutline } from '@mui/icons-material';
+import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteProduct, getProducts } from '../../redux/apiCalls';
 
 export default function ProductList() {
   const dispatch = useDispatch();
@@ -18,10 +18,10 @@ export default function ProductList() {
     deleteProduct(id, dispatch);
   };
   const columns = [
-    { field: "_id", headerName: "ID", width: 220 },
+    { field: '_id', headerName: 'ID', width: 220 },
     {
-      field: "product",
-      headerName: "Product",
+      field: 'product',
+      headerName: 'Product',
       width: 200,
       renderCell: (params) => {
         return (
@@ -32,23 +32,26 @@ export default function ProductList() {
         );
       },
     },
-    { field: "inStock", headerName: "Stock", width: 200 },
+    { field: 'inStock', headerName: 'Stock', width: 200 },
     {
-      field: "price",
-      headerName: "Price",
+      field: 'price',
+      headerName: 'Price',
       width: 160,
     },
     {
-      field: "action",
-      headerName: "Action",
+      field: 'action',
+      headerName: 'Action',
       width: 150,
       renderCell: (params) => {
         return (
           <>
-            <Link to={"/product/" + params.row._id}>
+            <Link to={'/product/' + params.row._id}>
               <button className="productListEdit">Edit</button>
             </Link>
-            <DeleteOutline className="productListDelete" onClick={() => handleDelete(params.row._id)} />
+            <DeleteOutline
+              className="productListDelete"
+              onClick={() => handleDelete(params.row._id)}
+            />
           </>
         );
       },

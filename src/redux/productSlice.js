@@ -1,7 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 export const productSlice = createSlice({
-  name: "product",
+  name: 'product',
   initialState: {
     products: [],
     isFetching: false,
@@ -38,6 +38,7 @@ export const productSlice = createSlice({
       state.isFetching = false;
       state.error = true;
     },
+
     //UPDATE
     updateProductStart: (state) => {
       state.isFetching = true;
@@ -45,12 +46,15 @@ export const productSlice = createSlice({
     },
     updateProductSuccess: (state, action) => {
       state.isFetching = false;
-      state.products[state.products.findIndex((item) => item._id === action.payload.id)] = action.payload.product;
+      state.products[
+        state.products.findIndex((item) => item._id === action.payload.id)
+      ] = action.payload.product;
     },
     updateProductFailure: (state) => {
       state.isFetching = false;
       state.error = true;
     },
+
     //ADD
     addProductStart: (state) => {
       state.isFetching = true;

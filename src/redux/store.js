@@ -1,8 +1,4 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
-
-import userReducer from './userRedux';
-import productReducer from './productRedux';
-
 import {
   persistStore,
   persistReducer,
@@ -13,8 +9,10 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
-
 import storage from 'redux-persist/lib/storage';
+
+import userReducer from './userSlice';
+import productReducer from './productSlice';
 
 const persistConfig = {
   key: 'root',
