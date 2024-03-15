@@ -1,13 +1,16 @@
-import "./topbar.css";
+import { Link } from '@mui/material';
+import './topbar.css';
 
-import { NotificationsNone, Language, Settings } from "@mui/icons-material";
+import { NotificationsNone, Language, Settings } from '@mui/icons-material';
 
 export default function Topbar() {
   return (
     <div className="topbar">
       <div className="topbarWrapper">
         <div className="topLeft">
-          <span className="logo">raihanadmin</span>
+          <Link style={{ textDecoration: 'none' }} className="logoBox" to="/">
+            <span className="logo">abuadmin</span>
+          </Link>
         </div>
         <div className="topRight">
           <div className="topbarIconContainer">

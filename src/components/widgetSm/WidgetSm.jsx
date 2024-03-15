@@ -1,7 +1,7 @@
-import "./widgetSm.css";
-import { Visibility } from "@mui/icons-material";
-import { useEffect, useState } from "react";
-import { userRequest } from "../../requestMethods";
+import './widgetSm.css';
+import { Visibility } from '@mui/icons-material';
+import { useEffect, useState } from 'react';
+import { userRequest } from '../../requestMethods';
 
 export default function WidgetSm() {
   const [users, setUsers] = useState([]);
@@ -9,7 +9,7 @@ export default function WidgetSm() {
   useEffect(() => {
     const getUsers = async () => {
       try {
-        const res = await userRequest.get("users?new=true");
+        const res = await userRequest.get('users/new-5');
         setUsers(res.data.data);
       } catch (error) {
         console.log(error.message);
@@ -23,7 +23,14 @@ export default function WidgetSm() {
       <ul className="widgetSmList">
         {users.map((user) => (
           <li key={user._id} className="widgetSmListItem">
-            <img src={user.img || "https://crowd-literature.eu/wp-content/uploads/2015/01/no-avatar.gif"} alt="" className="widgetSmImg" />
+            <img
+              src={
+                user.img ||
+                'https://crowd-literature.eu/wp-content/uploads/2015/01/no-avatar.gif'
+              }
+              alt=""
+              className="widgetSmImg"
+            />
             <div className="widgetSmUser">
               <span className="widgetSmUsername">{user.username}</span>
             </div>

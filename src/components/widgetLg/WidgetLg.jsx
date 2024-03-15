@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
-import "./widgetLg.css";
-import { useEffect, useState } from "react";
-import { userRequest } from "../../requestMethods";
-import { format } from "timeago.js";
+import './widgetLg.css';
+import { useEffect, useState } from 'react';
+import { userRequest } from '../../requestMethods';
+import { format } from 'timeago.js';
 
 export default function WidgetLg() {
   const [orders, setOrders] = useState([]);
@@ -10,7 +10,7 @@ export default function WidgetLg() {
   useEffect(() => {
     const getOrders = async () => {
       try {
-        const res = await userRequest.get("orders");
+        const res = await userRequest.get('orders/new-5');
         setOrders(res.data.data);
       } catch (error) {
         console.log(error);
@@ -20,7 +20,7 @@ export default function WidgetLg() {
   }, []);
   // console.log(orders);
   const Button = ({ type }) => {
-    return <button className={"widgetLgButton " + type}>{type}</button>;
+    return <button className={'widgetLgButton ' + type}>{type}</button>;
   };
   return (
     <div className="widgetLg">

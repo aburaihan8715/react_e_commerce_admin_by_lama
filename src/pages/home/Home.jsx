@@ -1,20 +1,36 @@
-import { useEffect, useMemo, useState } from 'react';
 import { Navigate } from 'react-router-dom';
+import { useEffect, useMemo, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import './home.css';
 import Chart from '../../components/chart/Chart';
 import FeaturedInfo from '../../components/featuredInfo/FeaturedInfo';
 import WidgetLg from '../../components/widgetLg/WidgetLg';
 import WidgetSm from '../../components/widgetSm/WidgetSm';
+// import { userData } from '../../dummyData';
 import { userRequest } from '../../requestMethods';
-import { useSelector } from 'react-redux';
+
+// NOTE: we can also use without useMemo()
+// const MONTHS = [
+//   'Jan',
+//   'Feb',
+//   'Mar',
+//   'Apr',
+//   'May',
+//   'Jun',
+//   'Jul',
+//   'Aug',
+//   'Sep',
+//   'Oct',
+//   'Nov',
+//   'Dec',
+// ];
 
 export default function Home() {
   const [userStats, setUserStats] = useState([]);
   const user = useSelector((state) => state.user?.currentUser);
 
   // console.log(user);
-
   const MONTHS = useMemo(
     () => [
       'Jan',
@@ -24,7 +40,7 @@ export default function Home() {
       'May',
       'Jun',
       'Jul',
-      'Agu',
+      'Aug',
       'Sep',
       'Oct',
       'Nov',
@@ -36,20 +52,18 @@ export default function Home() {
   useEffect(() => {
     const getStats = async () => {
       try {
-        const res = await userRequest.get('users/stats');
-        res.data.data.map((item) =>
-          setUserStats((prev) => [
-            ...prev,
-            { name: MONTHS[item._id - 1], 'Active User': item.total },
-          ])
-        );
+        const res = await userRequest.get('users/stats/2024');
+        const updatedData = res.data?.data?.map((item) => ({
+          month: MONTHS[item.month - 1],
+          'Active user': item.numUsers,
+        }));
+        setUserStats(updatedData);
       } catch (error) {
         console.log(error);
       }
     };
     getStats();
   }, [MONTHS]);
-  // console.log(userStats);
 
   if (!user || user.role !== 'admin') {
     return <Navigate to={`/login`} />;
@@ -62,7 +76,7 @@ export default function Home() {
         data={userStats}
         title="User Analytics"
         grid
-        dataKey="Active User"
+        dataKey="Active user"
       />
       <div className="homeWidgets">
         <WidgetSm />
