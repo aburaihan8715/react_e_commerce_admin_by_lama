@@ -65,9 +65,13 @@ export default function Home() {
     getStats();
   }, [MONTHS]);
 
-  if (!user || user.role !== 'admin') {
+  if (!user) {
     return <Navigate to={`/login`} />;
   }
+
+  // if (!user || user.role !== 'admin') {
+  //   return <Navigate to={`/login`} />;
+  // }
 
   return (
     <div className="home">

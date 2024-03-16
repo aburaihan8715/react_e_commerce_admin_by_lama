@@ -24,6 +24,9 @@
 .sidebarList {
   list-style: none;
   padding: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .sidebarListItem {

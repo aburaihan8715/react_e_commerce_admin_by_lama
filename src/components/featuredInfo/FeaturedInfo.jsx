@@ -1,21 +1,47 @@
-import './featuredInfo.css';
 import { ArrowDownward, ArrowUpward } from '@mui/icons-material';
 import { useEffect, useState } from 'react';
+
+import './featuredInfo.css';
 import { userRequest } from '../../requestMethods';
 
 export default function FeaturedInfo() {
-  const [income, setIncome] = useState([]);
-  const [perc, setPerc] = useState(0);
+  const [incomeStats, setIncomeStats] = useState([]);
+
+  const currentMonthData = incomeStats[incomeStats?.length - 1];
+  const lastMonthData = incomeStats[incomeStats?.length - 2];
+
+  // sales calculation
+  const currentMonthSales = currentMonthData?.salesAmount;
+  const lastMonthSales = lastMonthData?.salesAmount;
+  // NOTE: This is motto for comparing 2 numbers in percentage
+  const percentageSalesDiff = Math.floor(
+    (currentMonthSales * 100) / lastMonthSales - 100
+  );
+
+  // revenue calculation
+  const currentMonthRevenue =
+    currentMonthData?.salesAmount - currentMonthData?.costAmount;
+  const lastMonthRevenue =
+    lastMonthData?.salesAmount - lastMonthData?.costAmount;
+  // NOTE: This is motto for comparing 2 numbers in percentage
+  const percentageRevenueDiff = Math.floor(
+    (currentMonthRevenue * 100) / lastMonthRevenue - 100
+  );
+
+  // cost calculation
+  const currentMonthCost = currentMonthData?.costAmount;
+  const lastMonthCost = lastMonthData?.costAmount;
+  // NOTE: This is motto for comparing 2 numbers in percentage
+  const percentageCostDiff = Math.floor(
+    (currentMonthCost * 100) / lastMonthCost - 100
+  );
 
   useEffect(() => {
     const getIncome = async () => {
       try {
-        const res = await userRequest.get('orders/income');
-        setIncome(res.data?.data);
-        // TODO: not understand this
-        setPerc(
-          (res.data?.data[1]?.total * 100) / res.data?.data[0]?.total - 100
-        );
+        const res = await userRequest.get('orders/incomeStats');
+        const data = res.data?.data;
+        setIncomeStats(data);
       } catch (error) {
         console.log(error);
       }
@@ -26,27 +52,31 @@ export default function FeaturedInfo() {
   return (
     <div className="featured">
       <div className="featuredItem">
-        <span className="featuredTitle">Revenue</span>
+        <span className="featuredTitle">Sales</span>
         <div className="featuredMoneyContainer">
-          <span className="featuredMoney">${income[1]?.total}</span>
+          <span className="featuredMoney">${currentMonthSales}</span>
           <span className="featuredMoneyRate">
-            %{Math.floor(perc)}
-            {perc < 0 ? (
+            {percentageSalesDiff} %
+            {percentageSalesDiff < 0 ? (
               <ArrowDownward className="featuredIcon negative" />
             ) : (
-              <ArrowDownward className="featuredIcon negative" />
+              <ArrowUpward className="featuredIcon" />
             )}
           </span>
         </div>
         <span className="featuredSub">Compared to last month</span>
       </div>
       <div className="featuredItem">
-        <span className="featuredTitle">Sales</span>
+        <span className="featuredTitle">Revenue</span>
         <div className="featuredMoneyContainer">
-          {/* TODO: this also should be dynamic */}
-          <span className="featuredMoney">$4,415</span>
+          <span className="featuredMoney">${currentMonthRevenue}</span>
           <span className="featuredMoneyRate">
-            -1.4 <ArrowDownward className="featuredIcon negative" />
+            {percentageRevenueDiff} %
+            {percentageRevenueDiff < 0 ? (
+              <ArrowDownward className="featuredIcon negative" />
+            ) : (
+              <ArrowUpward className="featuredIcon" />
+            )}
           </span>
         </div>
         <span className="featuredSub">Compared to last month</span>
@@ -54,10 +84,14 @@ export default function FeaturedInfo() {
       <div className="featuredItem">
         <span className="featuredTitle">Cost</span>
         <div className="featuredMoneyContainer">
-          {/* TODO: this also should be dynamic */}
-          <span className="featuredMoney">$2,225</span>
+          <span className="featuredMoney">${currentMonthCost}</span>
           <span className="featuredMoneyRate">
-            +2.4 <ArrowUpward className="featuredIcon" />
+            {percentageCostDiff} %
+            {percentageCostDiff < 0 ? (
+              <ArrowDownward className="featuredIcon negative" />
+            ) : (
+              <ArrowUpward className="featuredIcon" />
+            )}
           </span>
         </div>
         <span className="featuredSub">Compared to last month</span>
