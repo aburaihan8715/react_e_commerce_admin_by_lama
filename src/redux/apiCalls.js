@@ -20,7 +20,7 @@ import {
 export const login = async (dispatch, user) => {
   dispatch(loginStart());
   try {
-    const res = await publicRequest.post('/auth/login', user);
+    const res = await publicRequest.post('auth/login', user);
     // console.log(res);
     dispatch(loginSuccess(res.data.data));
   } catch (err) {
@@ -32,7 +32,7 @@ export const login = async (dispatch, user) => {
 export const getProducts = async (dispatch) => {
   dispatch(getProductStart());
   try {
-    const res = await publicRequest.get('/products');
+    const res = await publicRequest.get('products');
     dispatch(getProductSuccess(res.data.data));
   } catch (err) {
     dispatch(getProductFailure());
@@ -43,8 +43,8 @@ export const getProducts = async (dispatch) => {
 export const deleteProduct = async (id, dispatch) => {
   dispatch(deleteProductStart());
   try {
-    // const res = await userRequest.delete(`/products/${id}`);
-    dispatch(deleteProductSuccess(id));
+    // await userRequest.delete(`products/${id}`); // It remove from database
+    dispatch(deleteProductSuccess(id)); // It remove from redux store
   } catch (err) {
     dispatch(deleteProductFailure());
   }
@@ -65,7 +65,7 @@ export const updateProduct = async (id, product, dispatch) => {
 export const addProduct = async (product, dispatch) => {
   dispatch(addProductStart());
   try {
-    const res = await userRequest.post(`/products`, product);
+    const res = await userRequest.post(`products`, product);
     dispatch(addProductSuccess(res.data.data));
   } catch (err) {
     dispatch(addProductFailure());

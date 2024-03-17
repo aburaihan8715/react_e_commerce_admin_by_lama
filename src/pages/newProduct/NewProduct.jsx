@@ -1,9 +1,15 @@
-import "./newProduct.css";
-import { useState } from "react";
-import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { app } from "../../firebase";
-import { addProduct } from "../../redux/apiCalls";
-import { useDispatch } from "react-redux";
+import { useState } from 'react';
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from 'firebase/storage';
+import { useDispatch } from 'react-redux';
+
+import './newProduct.css';
+import { app } from '../../firebase';
+import { addProduct } from '../../redux/apiCalls';
 
 export default function NewProduct() {
   const [inputs, setInputs] = useState({});
@@ -18,7 +24,7 @@ export default function NewProduct() {
     });
   };
   const handleCat = (e) => {
-    setCat(e.target.value.split(","));
+    setCat(e.target.value.split(','));
   };
 
   const handleClick = (e) => {
@@ -33,18 +39,19 @@ export default function NewProduct() {
     // 2. Error observer, called on failure
     // 3. Completion observer, called on successful completion
     uploadTask.on(
-      "state_changed",
+      'state_changed',
       (snapshot) => {
         // Observe state change events such as progress, pause, and resume
         // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        console.log("Upload is " + progress + "% done");
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log('Upload is ' + progress + '% done');
         switch (snapshot.state) {
-          case "paused":
-            console.log("Upload is paused");
+          case 'paused':
+            console.log('Upload is paused');
             break;
-          case "running":
-            console.log("Upload is running");
+          case 'running':
+            console.log('Upload is running');
             break;
           default:
         }
@@ -70,20 +77,49 @@ export default function NewProduct() {
       <form className="addProductForm">
         <div className="addProductItem">
           <label>Image</label>
-          <input type="file" id="file" onChange={(e) => setFile(e.target.files[0])} />
+          <input
+            type="file"
+            id="file"
+            onChange={(e) => setFile(e.target.files[0])}
+          />
         </div>
         <div className="addProductItem">
           <label>Title</label>
-          <input name="title" type="text" placeholder="Apple Airpods" onChange={handleChange} />
+          <input
+            name="title"
+            type="text"
+            placeholder="Apple Airpods"
+            onChange={handleChange}
+          />
         </div>
         <div className="addProductItem">
           <label>Description</label>
-          <input name="desc" type="text" placeholder="description..." onChange={handleChange} />
+          <input
+            name="desc"
+            type="text"
+            placeholder="description..."
+            onChange={handleChange}
+          />
         </div>
         <div className="addProductItem">
           <label>Price</label>
-          <input name="price" type="number" placeholder="100" onChange={handleChange} />
+          <input
+            name="price"
+            type="number"
+            placeholder="100"
+            onChange={handleChange}
+          />
         </div>
+        <div className="addProductItem">
+          <label>Cost</label>
+          <input
+            name="cost"
+            type="number"
+            placeholder="100"
+            onChange={handleChange}
+          />
+        </div>
+        {/* NOTE: we should use checkbox */}
         <div className="addProductItem">
           <label>Categories</label>
           <input type="text" placeholder="jeans,skirts" onChange={handleCat} />

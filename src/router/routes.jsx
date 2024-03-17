@@ -1,15 +1,15 @@
-import { createBrowserRouter } from "react-router-dom";
-import AppLayout from "../layouts/AppLayout";
-import Error from "../pages/error/Error";
-import Home from "../pages/home/Home";
-import UserList from "../pages/userList/UserList";
-import User from "../pages/user/User";
-import NewUser from "../pages/newUser/NewUser";
-import ProductList from "../pages/productList/ProductList";
-import Product from "../pages/product/Product";
-import NewProduct from "../pages/newProduct/NewProduct";
-import Login from "../pages/login/Login";
-import LoginLayout from "../layouts/LoginLayout";
+import { createBrowserRouter } from 'react-router-dom';
+import AppLayout from '../layouts/AppLayout';
+import Error from '../pages/error/Error';
+import Home from '../pages/home/Home';
+import UserList from '../pages/userList/UserList';
+import User from '../pages/user/User';
+import NewUser from '../pages/newUser/NewUser';
+import ProductList from '../pages/productList/ProductList';
+import Product from '../pages/product/Product';
+import NewProduct from '../pages/newProduct/NewProduct';
+import Login from '../pages/login/Login';
+import LoginLayout from '../layouts/LoginLayout';
 
 export const router = createBrowserRouter([
   {
@@ -17,31 +17,31 @@ export const router = createBrowserRouter([
     errorElement: <Error />,
     children: [
       {
-        path: "/",
+        path: '/',
         element: <Home />,
       },
       {
-        path: "/users",
+        path: '/users',
         element: <UserList />,
       },
       {
-        path: "/user/:userId",
+        path: '/users/:userId',
         element: <User />,
       },
       {
-        path: "/newUser",
+        path: '/newUser',
         element: <NewUser />,
       },
       {
-        path: "/products",
+        path: '/products',
         element: <ProductList />,
       },
       {
-        path: "/product/:productId",
+        path: '/products/:productId',
         element: <Product />,
       },
       {
-        path: "/newproduct",
+        path: '/newproduct',
         element: <NewProduct />,
       },
     ],
@@ -53,7 +53,7 @@ export const router = createBrowserRouter([
     errorElement: <Error />,
     children: [
       {
-        path: "/login",
+        path: '/login',
         element: <Login />,
       },
     ],

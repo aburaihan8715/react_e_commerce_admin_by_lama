@@ -15,6 +15,7 @@ export const productSlice = createSlice({
     },
     getProductSuccess: (state, action) => {
       state.isFetching = false;
+      state.error = false;
       state.products = action.payload;
     },
     getProductFailure: (state) => {
@@ -29,10 +30,16 @@ export const productSlice = createSlice({
     },
     deleteProductSuccess: (state, action) => {
       state.isFetching = false;
+      state.error = false;
+      // NOTE: we can use filter or splice
+      // splice is better
       state.products.splice(
         state.products.findIndex((item) => item._id === action.payload),
         1
       );
+      // state.products = state.products.filter(
+      //   (item) => item._id !== action.payload
+      // );
     },
     deleteProductFailure: (state) => {
       state.isFetching = false;

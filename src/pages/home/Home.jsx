@@ -53,7 +53,8 @@ export default function Home() {
     const getStats = async () => {
       try {
         const res = await userRequest.get('users/stats/2024');
-        const updatedData = res.data?.data?.map((item) => ({
+        const data = res.data?.data;
+        const updatedData = data?.map((item) => ({
           month: MONTHS[item.month - 1],
           'Active user': item.numUsers,
         }));

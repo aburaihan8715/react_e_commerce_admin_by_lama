@@ -1,14 +1,16 @@
-import './productList.css';
 import { DataGrid } from '@mui/x-data-grid';
 import { DeleteOutline } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
-import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+
+import './productList.css';
 import { deleteProduct, getProducts } from '../../redux/apiCalls';
 
 export default function ProductList() {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.product.products);
+  // console.log(products);
 
   useEffect(() => {
     getProducts(dispatch);
@@ -17,6 +19,7 @@ export default function ProductList() {
   const handleDelete = (id) => {
     deleteProduct(id, dispatch);
   };
+
   const columns = [
     { field: '_id', headerName: 'ID', width: 220 },
     {
@@ -25,10 +28,10 @@ export default function ProductList() {
       width: 200,
       renderCell: (params) => {
         return (
-          <div className="productListItem">
+          <span className="productListItem">
             <img className="productListImg" src={params.row.img} alt="" />
             {params.row.title}
-          </div>
+          </span>
         );
       },
     },
@@ -45,7 +48,7 @@ export default function ProductList() {
       renderCell: (params) => {
         return (
           <>
-            <Link to={'/product/' + params.row._id}>
+            <Link to={'/products/' + params.row._id}>
               <button className="productListEdit">Edit</button>
             </Link>
             <DeleteOutline
@@ -69,7 +72,7 @@ export default function ProductList() {
             paginationModel: { page: 0, pageSize: 8 },
           },
         }}
-        pageSizeOptions={[8, 10]}
+        pageSizeOptions={[5, 8, 10]}
         checkboxSelection
         disableRowSelectionOnClick
       />
